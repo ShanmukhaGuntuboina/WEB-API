@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB_EmployeeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_Educational_Details">
+          <Key>
+            <PropertyRef Name="Educational_Details_Id" />
+          </Key>
+          <Property Name="Educational_Details_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_Id" Type="int" Nullable="false" />
+          <Property Name="Education" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="University" Type="nvarchar" MaxLength="500" />
+          <Property Name="Grade_Obtained" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Passing_Year" Type="nvarchar" MaxLength="10" />
+          <Property Name="Active_Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Employee_Master">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+          </Key>
+          <Property Name="Employee_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Contact_No" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address_Line1" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address_Line2" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Zip_Code" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Active_Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Error_Log">
+          <Key>
+            <PropertyRef Name="Error_Id" />
+          </Key>
+          <Property Name="Error_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Page_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="Merthod_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="Error_Message" Type="nvarchar(max)" />
+          <Property Name="Stack_Trace" Type="nvarchar(max)" />
+          <Property Name="Create_Datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_User_Master">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Full_Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Last_Login_Datetime" Type="datetime" />
+          <Property Name="Active_Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tbl_Educational_Details_tbl_Employee_Master">
+          <End Role="tbl_Employee_Master" Type="Self.tbl_Employee_Master" Multiplicity="1" />
+          <End Role="tbl_Educational_Details" Type="Self.tbl_Educational_Details" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Employee_Master">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="tbl_Educational_Details">
+              <PropertyRef Name="Educational_Details_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Proc_tbl_Employee_Master_Insert_Data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Employee_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contact_No" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address1" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address2" Type="nvarchar" Mode="In" />
+          <Parameter Name="City" Type="nvarchar" Mode="In" />
+          <Parameter Name="State" Type="nvarchar" Mode="In" />
+          <Parameter Name="Country" Type="nvarchar" Mode="In" />
+          <Parameter Name="Zipcode" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Proc_tbl_Employee_Master_Select_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Proc_tbl_Employee_Master_Select_By_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Employee_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Proc_tbl_Employee_Master_Update_Data" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Employee_Id" Type="int" Mode="In" />
+          <Parameter Name="Employee_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contact_No" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address1" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address2" Type="nvarchar" Mode="In" />
+          <Parameter Name="City" Type="nvarchar" Mode="In" />
+          <Parameter Name="State" Type="nvarchar" Mode="In" />
+          <Parameter Name="Country" Type="nvarchar" Mode="In" />
+          <Parameter Name="Zipcode" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Proc_tbl_Employee_Master_Update_Status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Employee_Id" Type="int" Mode="In" />
+          <Parameter Name="status" Type="bit" Mode="In" />
+        </Function>
+        <EntityContainer Name="DB_EmployeeModelStoreContainer">
+          <EntitySet Name="tbl_Educational_Details" EntityType="Self.tbl_Educational_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Employee_Master" EntityType="Self.tbl_Employee_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Error_Log" EntityType="Self.tbl_Error_Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_User_Master" EntityType="Self.tbl_User_Master" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_Educational_Details_tbl_Employee_Master" Association="Self.FK_tbl_Educational_Details_tbl_Employee_Master">
+            <End Role="tbl_Employee_Master" EntitySet="tbl_Employee_Master" />
+            <End Role="tbl_Educational_Details" EntitySet="tbl_Educational_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_EmployeeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_Educational_Details">
+          <Key>
+            <PropertyRef Name="Educational_Details_Id" />
+          </Key>
+          <Property Name="Educational_Details_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_Id" Type="Int32" Nullable="false" />
+          <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="University" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Grade_Obtained" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Passing_Year" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Active_Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbl_Employee_Master" Relationship="Self.FK_tbl_Educational_Details_tbl_Employee_Master" FromRole="tbl_Educational_Details" ToRole="tbl_Employee_Master" />
+        </EntityType>
+        <EntityType Name="tbl_Employee_Master">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+          </Key>
+          <Property Name="Employee_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contact_No" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address_Line1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address_Line2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Zip_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active_Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbl_Educational_Details" Relationship="Self.FK_tbl_Educational_Details_tbl_Employee_Master" FromRole="tbl_Employee_Master" ToRole="tbl_Educational_Details" />
+        </EntityType>
+        <EntityType Name="tbl_Error_Log">
+          <Key>
+            <PropertyRef Name="Error_Id" />
+          </Key>
+          <Property Name="Error_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Page_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Merthod_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Error_Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Stack_Trace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Create_Datetime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_User_Master">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Full_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Last_Login_Datetime" Type="DateTime" Precision="3" />
+          <Property Name="Active_Status" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tbl_Educational_Details_tbl_Employee_Master">
+          <End Role="tbl_Employee_Master" Type="Self.tbl_Employee_Master" Multiplicity="1" />
+          <End Role="tbl_Educational_Details" Type="Self.tbl_Educational_Details" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Employee_Master">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="tbl_Educational_Details">
+              <PropertyRef Name="Educational_Details_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_EmployeeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_Educational_Details" EntityType="Self.tbl_Educational_Details" />
+          <EntitySet Name="tbl_Employee_Master" EntityType="Self.tbl_Employee_Master" />
+          <EntitySet Name="tbl_Error_Log" EntityType="Self.tbl_Error_Log" />
+          <EntitySet Name="tbl_User_Master" EntityType="Self.tbl_User_Master" />
+          <AssociationSet Name="FK_tbl_Educational_Details_tbl_Employee_Master" Association="Self.FK_tbl_Educational_Details_tbl_Employee_Master">
+            <End Role="tbl_Employee_Master" EntitySet="tbl_Employee_Master" />
+            <End Role="tbl_Educational_Details" EntitySet="tbl_Educational_Details" />
+          </AssociationSet>
+          <FunctionImport Name="Proc_tbl_Employee_Master_Insert_Data">
+            <Parameter Name="Employee_Name" Mode="In" Type="String" />
+            <Parameter Name="Contact_No" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Address1" Mode="In" Type="String" />
+            <Parameter Name="Address2" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="State" Mode="In" Type="String" />
+            <Parameter Name="Country" Mode="In" Type="String" />
+            <Parameter Name="Zipcode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Proc_tbl_Employee_Master_Select_All" ReturnType="Collection(DB_EmployeeModel.Proc_tbl_Employee_Master_Select_All_Result)" />
+          <FunctionImport Name="Proc_tbl_Employee_Master_Select_By_Id" ReturnType="Collection(DB_EmployeeModel.Proc_tbl_Employee_Master_Select_By_Id_Result)">
+            <Parameter Name="Employee_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Proc_tbl_Employee_Master_Update_Data">
+            <Parameter Name="Employee_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Employee_Name" Mode="In" Type="String" />
+            <Parameter Name="Contact_No" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Address1" Mode="In" Type="String" />
+            <Parameter Name="Address2" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="State" Mode="In" Type="String" />
+            <Parameter Name="Country" Mode="In" Type="String" />
+            <Parameter Name="Zipcode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Proc_tbl_Employee_Master_Update_Status">
+            <Parameter Name="Employee_Id" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Proc_tbl_Employee_Master_Select_All_Result">
+          <Property Type="Int32" Name="Employee_Id" Nullable="false" />
+          <Property Type="String" Name="Employee_Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Contact_No" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address_Line1" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Address_Line2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="State" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Country" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Zip_Code" Nullable="false" MaxLength="10" />
+          <Property Type="Boolean" Name="Active_Status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Proc_tbl_Employee_Master_Select_By_Id_Result">
+          <Property Type="Int32" Name="Employee_Id" Nullable="false" />
+          <Property Type="String" Name="Employee_Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Contact_No" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Address_Line1" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Address_Line2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="State" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Country" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Zip_Code" Nullable="false" MaxLength="10" />
+          <Property Type="Boolean" Name="Active_Status" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_EmployeeModelStoreContainer" CdmEntityContainer="DB_EmployeeEntities">
+          <EntitySetMapping Name="tbl_Educational_Details">
+            <EntityTypeMapping TypeName="DB_EmployeeModel.tbl_Educational_Details">
+              <MappingFragment StoreEntitySet="tbl_Educational_Details">
+                <ScalarProperty Name="Educational_Details_Id" ColumnName="Educational_Details_Id" />
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="University" ColumnName="University" />
+                <ScalarProperty Name="Grade_Obtained" ColumnName="Grade_Obtained" />
+                <ScalarProperty Name="Passing_Year" ColumnName="Passing_Year" />
+                <ScalarProperty Name="Active_Status" ColumnName="Active_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Employee_Master">
+            <EntityTypeMapping TypeName="DB_EmployeeModel.tbl_Employee_Master">
+              <MappingFragment StoreEntitySet="tbl_Employee_Master">
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+                <ScalarProperty Name="Contact_No" ColumnName="Contact_No" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address_Line1" ColumnName="Address_Line1" />
+                <ScalarProperty Name="Address_Line2" ColumnName="Address_Line2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Zip_Code" ColumnName="Zip_Code" />
+                <ScalarProperty Name="Active_Status" ColumnName="Active_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Error_Log">
+            <EntityTypeMapping TypeName="DB_EmployeeModel.tbl_Error_Log">
+              <MappingFragment StoreEntitySet="tbl_Error_Log">
+                <ScalarProperty Name="Error_Id" ColumnName="Error_Id" />
+                <ScalarProperty Name="Page_Name" ColumnName="Page_Name" />
+                <ScalarProperty Name="Merthod_Name" ColumnName="Merthod_Name" />
+                <ScalarProperty Name="Error_Message" ColumnName="Error_Message" />
+                <ScalarProperty Name="Stack_Trace" ColumnName="Stack_Trace" />
+                <ScalarProperty Name="Create_Datetime" ColumnName="Create_Datetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_User_Master">
+            <EntityTypeMapping TypeName="DB_EmployeeModel.tbl_User_Master">
+              <MappingFragment StoreEntitySet="tbl_User_Master">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+                <ScalarProperty Name="Last_Login_Datetime" ColumnName="Last_Login_Datetime" />
+                <ScalarProperty Name="Active_Status" ColumnName="Active_Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Proc_tbl_Employee_Master_Insert_Data" FunctionName="DB_EmployeeModel.Store.Proc_tbl_Employee_Master_Insert_Data" />
+          <FunctionImportMapping FunctionImportName="Proc_tbl_Employee_Master_Select_All" FunctionName="DB_EmployeeModel.Store.Proc_tbl_Employee_Master_Select_All">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_EmployeeModel.Proc_tbl_Employee_Master_Select_All_Result">
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+                <ScalarProperty Name="Contact_No" ColumnName="Contact_No" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address_Line1" ColumnName="Address_Line1" />
+                <ScalarProperty Name="Address_Line2" ColumnName="Address_Line2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Zip_Code" ColumnName="Zip_Code" />
+                <ScalarProperty Name="Active_Status" ColumnName="Active_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Proc_tbl_Employee_Master_Select_By_Id" FunctionName="DB_EmployeeModel.Store.Proc_tbl_Employee_Master_Select_By_Id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_EmployeeModel.Proc_tbl_Employee_Master_Select_By_Id_Result">
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+                <ScalarProperty Name="Contact_No" ColumnName="Contact_No" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address_Line1" ColumnName="Address_Line1" />
+                <ScalarProperty Name="Address_Line2" ColumnName="Address_Line2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Zip_Code" ColumnName="Zip_Code" />
+                <ScalarProperty Name="Active_Status" ColumnName="Active_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Proc_tbl_Employee_Master_Update_Data" FunctionName="DB_EmployeeModel.Store.Proc_tbl_Employee_Master_Update_Data" />
+          <FunctionImportMapping FunctionImportName="Proc_tbl_Employee_Master_Update_Status" FunctionName="DB_EmployeeModel.Store.Proc_tbl_Employee_Master_Update_Status" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
